@@ -1,0 +1,13 @@
+{
+    "atomics": "",
+    "valid_argument": "",
+    "minimum_branches": "",
+    "min_and_decomps": "",
+    "min_or_decomps": "",
+    "min_cond_decomps": "",
+    "min_bicond_decomps": "",
+    "min_neg_and_decomps": "",
+    "min_neg_or_decomps": "",
+    "min_neg_cond_decomps": "",
+    "min_neg_bicond_decomps": ""
+}
