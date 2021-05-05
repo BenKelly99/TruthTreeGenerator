@@ -1,6 +1,8 @@
 {
-    "atomics": "",
-    "valid_argument": "",
+    "atomics": "3",
+    "consistent": "",
+    "num_premises": "3",
+    "num_decompositons": "4",
     "minimum_branches": "",
     "min_and_decomps": "",
     "min_or_decomps": "",
