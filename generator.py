@@ -1,20 +1,29 @@
 import json
 import random
+import distutils.util
+
 from sys import argv
 
 from logical_statement import *
+from utils import are_statements_consistent
 
 def random_opperation(num, p1, p2):
     if num == 0 :
         return And(p1, p2)
     if num == 1 :
-        return Negation(p1)
-    if num == 2 :
         return Or(p1, p2)
-    if num == 3 :
+    if num == 2 :
         return Conditional(p1, p2)
-    if num == 4 :
+    if num == 3 :
         return Biconditional(p1, p2)
+    if num == 4 :
+        return Negation(And(p1, p2))
+    if num == 5 :
+        return Negation(Or(p1, p2))
+    if num == 6 :
+        return Negation(Conditional(p1, p2))
+    if num == 7 :
+        return Negation(Biconditional(p1, p2))
 
 
 def generate_premises(options_file):
@@ -22,40 +31,57 @@ def generate_premises(options_file):
     data = json.load(f)
 
     atomics = int(data["atomics"])
-    consistent = data["consistent"]
+    consistent = bool(distutils.util.strtobool(data["consistent"]))
     num_premises = int(data["num_premises"])
     num_decompositons = int(data["num_decompositons"])
 
-    min_branches = data["minimum_branches"]
-    and_decomps = data["min_and_decomps"]
-    or_decomps = data["min_or_decomps"]
-    cond_decomps = data["min_cond_decomps"]
-    bicond_decomps = data["min_bicond_decomps"]
-    neg_and_decomps = data["min_neg_and_decomps"]
-    neg_or_decomps = data["min_neg_or_decomps"]
-    neg_cond_decomps = data["min_neg_cond_decomps"]
-    neg_bicond_decomps = data["min_neg_bicond_decomps"]
+    min_branches = int(data["minimum_branches"])
+    and_decomps = int(data["min_and_decomps"])
+    or_decomps = int(data["min_or_decomps"])
+    cond_decomps = int(data["min_cond_decomps"])
+    bicond_decomps = int(data["min_bicond_decomps"])
+    neg_and_decomps = int(data["min_neg_and_decomps"])
+    neg_or_decomps = int(data["min_neg_or_decomps"])
+    neg_cond_decomps = int(data["min_neg_cond_decomps"])
+    neg_bicond_decomps = int(data["min_neg_bicond_decomps"])
 
+    possible_decomps = ([0] * and_decomps) + ([1] * or_decomps) + ([2] * cond_decomps) + ([3] * bicond_decomps) + ([4] * neg_and_decomps) + ([5] * neg_or_decomps) + ([6] * neg_cond_decomps) + ([7] * neg_bicond_decomps)
 
-
+    atoms = []
     literals = []
     for x in range(atomics):
+        atoms.append("" + (chr(65+x)))
         literals.append(Literal(chr(65+x)))
-
+        literals.append(Negation(Literal(chr(65+x))))
     premises = []
     for x in range(num_premises):
-        p1 = random.choice(literals)
-        p2 = random.choice(literals)
-
-        while p1 == p2:
-            p2 = random.choice(literals)
-
-        for y in range(random.randrange(0,num_decompositons,1)):
-            p1 = random_opperation(random.choice([0,1,2,3,4]), p1, p2)
-            p2 = random.choice(literals)
-
-        premises.append(p1)
-
+        first = True
+        new_premises = premises
+        while first or (not x == num_premises - 1 and not are_statements_consistent(new_premises, atoms)) or (x == num_premises - 1 and (not are_statements_consistent(new_premises, atoms) == consistent)):
+            first = False
+            premise = None
+            available_statements = []
+            for y in range(random.randrange(1,num_decompositons, 1)):
+                available = available_statements + literals
+                p1 = random.choice(available)
+                if len(available) > 2:
+                    available.remove(p1)
+                p2 = random.choice(available)
+                if len(possible_decomps) > 0:
+                    operation = random.choice(possible_decomps)
+                    possible_decomps.remove(operation)
+                else:
+                    operation = random.randrange(0, 8, 1)
+                premise = random_opperation(operation, p1, p2)
+                available_statements.append(premise)
+                if p1 in available_statements:
+                    available_statements.remove(p1)
+                if (not p1 == p2) and (p2 in available_statements):
+                    available_statements.remove(p2)
+            new_premises = premises.copy()
+            new_premises.append(premise)
+        premises.append(premise)
+    
     return premises
 
 

@@ -1,15 +1,15 @@
 {
     "atomics": "3",
-    "consistent": "",
+    "consistent": "True",
     "num_premises": "3",
-    "num_decompositons": "4",
-    "minimum_branches": "",
-    "min_and_decomps": "",
-    "min_or_decomps": "",
-    "min_cond_decomps": "",
-    "min_bicond_decomps": "",
-    "min_neg_and_decomps": "",
-    "min_neg_or_decomps": "",
-    "min_neg_cond_decomps": "",
-    "min_neg_bicond_decomps": ""
+    "num_decompositons": "8",
+    "minimum_branches": "1",
+    "min_and_decomps": "1",
+    "min_or_decomps": "1",
+    "min_cond_decomps": "1",
+    "min_bicond_decomps": "1",
+    "min_neg_and_decomps": "1",
+    "min_neg_or_decomps": "1",
+    "min_neg_cond_decomps": "1",
+    "min_neg_bicond_decomps": "1"
 }

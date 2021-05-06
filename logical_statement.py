@@ -121,7 +121,6 @@ class Biconditional(BinaryStatement):
     def getDecomposition(self):
         return [[self.leftOperand, self.rightOperand], [Negation(self.leftOperand), Negation(self.rightOperand)]]
 
-
 if __name__ == "__main__":
     A = Literal("A")
     B = Literal("B")
