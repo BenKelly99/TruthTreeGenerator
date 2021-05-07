@@ -6,6 +6,7 @@ from sys import argv
 
 from logical_statement import *
 from utils import are_statements_consistent
+from truth_tree import *
 
 def random_opperation(num, p1, p2):
     if num == 0 :
@@ -35,7 +36,7 @@ def generate_premises(options_file):
     num_premises = int(data["num_premises"])
     num_decompositons = int(data["num_decompositons"])
 
-    min_branches = int(data["minimum_branches"])
+    min_depth = int(data["min_logic_depth"])
     and_decomps = int(data["min_and_decomps"])
     or_decomps = int(data["min_or_decomps"])
     cond_decomps = int(data["min_cond_decomps"])
@@ -58,7 +59,8 @@ def generate_premises(options_file):
         first = True
         new_premises = premises
         final_premise = None
-        while first or (not x == num_premises - 1 and not are_statements_consistent(new_premises, atoms)) or (x == num_premises - 1 and (not are_statements_consistent(new_premises, atoms) == consistent)):
+        max_branch_length = -1
+        while first or (not x == num_premises - 1 and not are_statements_consistent(new_premises, atoms)) or (x == num_premises - 1 and (not are_statements_consistent(new_premises, atoms) == consistent)) or max_branch_length < min_depth:
             first = False
             available_statements = []
             decomp_num = random.randrange(1,num_decompositons, 1)
@@ -89,9 +91,9 @@ def generate_premises(options_file):
                 final_premise = random_opperation(operation, final_premise, available_statements[i])
             new_premises = premises.copy()
             new_premises.append(final_premise)
-
+            tree_version = create_truth_tree_from_premises(new_premises)
+            max_branch_length = maxmimum_depth_without_contradiction(tree_version)
         premises.append(final_premise)
-    
     return premises
 
 

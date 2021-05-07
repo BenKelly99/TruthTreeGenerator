@@ -4,8 +4,8 @@ from sys import argv
 def generate_empty_option_file(file_name):
     options = [
         "atomics",
-        "valid_argument",
-        "minimum_branches",
+        "consistent",
+        "min_logic_depth",
         "min_and_decomps",
         "min_or_decomps",
         "min_cond_decomps",

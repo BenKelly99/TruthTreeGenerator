@@ -55,7 +55,7 @@ class Literal(LogicalStatement):
         return truth_assignment[self.literal]
 
     def getDecomposition(self):
-        return self
+        return None
 
     def getString(self):
         return self.literal
@@ -69,9 +69,9 @@ class Negation(UnaryStatement):
 
     def getDecomposition(self):
         if isinstance(self.operand, Literal):
-            return self
+            return None
         elif isinstance(self.operand, Negation):
-            return self.operand.operand
+            return [[self.operand.operand]]
         elif isinstance(self.operand, And):
             return [[Negation(self.operand.leftOperand)], [Negation(self.operand.leftOperand)]]
         elif isinstance(self.operand, Or):
@@ -79,7 +79,7 @@ class Negation(UnaryStatement):
         elif isinstance(self.operand, Conditional):
             return [[self.operand.leftOperand, Negation(self.operand.leftOperand)]]
         elif isinstance(self.operand, Biconditional):
-            return [[self.leftOperand, Negation(self.rightOperand)], [Negation(self.leftOperand), self.rightOperand]]
+            return [[self.operand.leftOperand, Negation(self.operand.rightOperand)], [Negation(self.operand.leftOperand), self.operand.rightOperand]]
 
 class And(BinaryStatement):
     def __init__(self, leftOperand, rightOperand):

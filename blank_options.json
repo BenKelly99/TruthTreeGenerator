@@ -1,9 +1,9 @@
 {
     "atomics": "3",
-    "consistent": "True",
+    "consistent": "False",
     "num_premises": "3",
-    "num_decompositons": "8",
-    "minimum_branches": "1",
+    "num_decompositons": "4",
+    "min_logic_depth": "2",
     "min_and_decomps": "1",
     "min_or_decomps": "1",
     "min_cond_decomps": "1",
