@@ -57,11 +57,15 @@ def generate_premises(options_file):
     for x in range(num_premises):
         first = True
         new_premises = premises
+        final_premise = None
         while first or (not x == num_premises - 1 and not are_statements_consistent(new_premises, atoms)) or (x == num_premises - 1 and (not are_statements_consistent(new_premises, atoms) == consistent)):
             first = False
-            premise = None
             available_statements = []
-            for y in range(random.randrange(1,num_decompositons, 1)):
+            decomp_num = random.randrange(1,num_decompositons, 1)
+            operation_count = 0
+            while True:
+                if operation_count + len(available_statements) > decomp_num:
+                    break
                 available = available_statements + literals
                 p1 = random.choice(available)
                 if len(available) > 2:
@@ -78,9 +82,15 @@ def generate_premises(options_file):
                     available_statements.remove(p1)
                 if (not p1 == p2) and (p2 in available_statements):
                     available_statements.remove(p2)
+                operation_count += 1
+            final_premise = available_statements[0]
+            for i in range(1, len(available_statements)):
+                operation = random.randrange(0, 8, 1)
+                final_premise = random_opperation(operation, final_premise, available_statements[i])
             new_premises = premises.copy()
-            new_premises.append(premise)
-        premises.append(premise)
+            new_premises.append(final_premise)
+
+        premises.append(final_premise)
     
     return premises
 
