@@ -1,4 +1,4 @@
-#TruthTreeGenerator
+# TruthTreeGenerator
 ## What is TruthTreeGenerator
 TruthTreeGenerator is a python program that given a set of options returns a TruthTree problem that can be opened in willow.
 ## How to use:
@@ -29,7 +29,7 @@ The options file has 13 different fields:
 ## Possible future additions
 - adding a GUI
 ## Authors
-Ben Kelly
+Ben Kelly, 
 Jenay Barela
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
