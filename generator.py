@@ -34,7 +34,7 @@ def generate_premises(options_file):
     atomics = int(data["atomics"])
     consistent = bool(distutils.util.strtobool(data["consistent"]))
     num_premises = int(data["num_premises"])
-    num_decompositons = int(data["num_decompositons"])
+    num_decompositons = int(data["max_decomps_in_premise"])
 
     min_depth = int(data["min_logic_depth"])
     and_decomps = int(data["min_and_decomps"])

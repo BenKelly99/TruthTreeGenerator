@@ -1,15 +1,15 @@
 {
-    "atomics": "3",
-    "consistent": "False",
-    "num_premises": "3",
-    "num_decompositons": "4",
-    "min_logic_depth": "2",
-    "min_and_decomps": "1",
-    "min_or_decomps": "1",
-    "min_cond_decomps": "1",
-    "min_bicond_decomps": "1",
-    "min_neg_and_decomps": "1",
-    "min_neg_or_decomps": "1",
-    "min_neg_cond_decomps": "1",
-    "min_neg_bicond_decomps": "1"
+    "atomics": "",
+    "consistent": "",
+    "num_premises": "",
+    "max_decomps_in_premise": "",
+    "min_logic_depth": "",
+    "min_and_decomps": "",
+    "min_or_decomps": "",
+    "min_cond_decomps": "",
+    "min_bicond_decomps": "",
+    "min_neg_and_decomps": "",
+    "min_neg_or_decomps": "",
+    "min_neg_cond_decomps": "",
+    "min_neg_bicond_decomps": ""
 }
